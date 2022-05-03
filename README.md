@@ -1,2 +1,3 @@
-# Minigames-Cheats
-Some utils to win popular minigames
+# Wordle
+A cheat module for the popular game Wordle.
+
