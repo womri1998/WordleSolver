@@ -1,13 +1,19 @@
+from enum import Enum
 from string import ascii_lowercase
-from nltk.corpus import words
+
+from word_initializers.english_words_initilalizer import EnglishWords
 
 WORDS_LENGTH = 5
 
 
+class Languages(Enum):
+    ENGLISH = EnglishWords
+
+
 class Keyboard:
-    def __init__(self, words_length: int):
+    def __init__(self, words_length: int, language: str):
         self.words_length = words_length
-        self.all_words = [word.lower() for word in words.words() if len(word) == self.words_length]
+        self.all_words = Languages[language].value.get_words()
         self.keys = None
         self.must_haves = None
         self.reset()
