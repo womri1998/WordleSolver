@@ -1,6 +1,7 @@
 from nltk.corpus import words
 from english_words import english_words_lower_alpha_set
 from json import loads
+from string import ascii_lowercase
 
 from word_initializers.word_initializer import WordInitializer
 
@@ -11,7 +12,10 @@ class EnglishWords(WordInitializer):
         all_words.update(english_words_lower_alpha_set)
         all_words.update(self._nltk_words())
         all_words.update(self._words_alpha())
-        return all_words
+        return self.filter(all_words)
+
+    def filter(self, all_words: set[str]) -> set[str]:
+        return {word for word in all_words if len(word) == self.length and all([c in ascii_lowercase for c in word])}
 
     @staticmethod
     def _nltk_words() -> set[str]:
