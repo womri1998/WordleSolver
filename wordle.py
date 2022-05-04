@@ -13,7 +13,7 @@ class Languages(Enum):
 class Keyboard:
     def __init__(self, words_length: int, language: str):
         self.words_length = words_length
-        self.all_words = Languages[language].value().get_words()
+        self.all_words = Languages[language].value(self.words_length).get_words()
         self.keys = None
         self.must_haves = None
         self.reset()
