@@ -2,8 +2,9 @@ from nltk.corpus import words
 from english_words import english_words_lower_alpha_set
 from json import loads
 from string import ascii_lowercase
+from os import path
 
-from word_initializers.word_initializer import WordInitializer
+from .word_initializer import WordInitializer
 
 
 class EnglishWords(WordInitializer):
@@ -23,6 +24,6 @@ class EnglishWords(WordInitializer):
 
     @staticmethod
     def _words_alpha() -> set[str]:
-        with open("word_initializers/english_data/words_dictionary.json", 'r') as f:
+        with open(path.join(path.dirname(__file__), "english_data/words_dictionary.json"), 'r') as f:
             words_dictionary = loads(f.read())
             return set(words_dictionary.keys())
