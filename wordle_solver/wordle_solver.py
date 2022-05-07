@@ -11,7 +11,7 @@ class Languages(Enum):
     ENGLISH = EnglishWords
 
 
-class Keyboard:
+class WordleSolver:
     def __init__(self, words_length: int, language: str):
         self.words_length = words_length
         self.all_words = Languages[language].value(self.words_length).get_words()
@@ -23,23 +23,16 @@ class Keyboard:
         self.keys = {letter: {i for i in range(self.words_length)} for letter in ascii_lowercase}
         self.must_haves = set()  # each character points to the number of times it could occur.
 
-    def green_letter(self, letter: str, index: int):
+    def insert_green_letter(self, letter: str, index: int):
         self.must_haves.add(letter)
         self.keys[letter] = {index}
 
-    def yellow_letter(self, letter: str, index: int):
+    def insert_yellow_letter(self, letter: str, index: int):
         self.must_haves.add(letter)
         self.keys[letter].discard(index)
 
-    def black_letter(self, letter: str, index: int):
+    def insert_black_letter(self, letter: str, index: int):
         self.keys[letter] = set()
-
-    def update_letter(self, letter: str, indices: dict[int, str]):
-        """
-        :param letter: the letter we update
-        :param indices: a mapping between index in which it was inserted to the color it has.
-        """
-        pass
 
     def valid_word(self, word: str) -> bool:
         return all([index in self.keys[letter] for index, letter in enumerate(word)]) and \
@@ -52,11 +45,11 @@ class Keyboard:
             for index, (letter, color) in enumerate(zip(word, colors)):
                 match color:
                     case 'G':
-                        self.green_letter(letter, index)
+                        self.insert_green_letter(letter, index)
                     case 'Y':
-                        self.yellow_letter(letter, index)
+                        self.insert_yellow_letter(letter, index)
                     case 'B':
-                        self.black_letter(letter, index)
+                        self.insert_black_letter(letter, index)
             return False
 
     def possible_solutions(self):
@@ -65,9 +58,9 @@ class Keyboard:
     def uniqueness_score(self, word: str) -> int:
         return len(set(([c for c in word if c not in self.must_haves and self.keys[c] != set()])))
 
-    def get_uniqueness_score_groups(self) -> list[tuple[int, list[str]]]:
+    def get_most_option_reducing_words(self) -> tuple[int, list[str]]:
         sorted_score_list = sorted([(self.uniqueness_score(word), word) for word in self.all_words], key=lambda pair: pair[0], reverse=True)
-        return [(score, [word for score, word in group]) for score, group in groupby(sorted_score_list, lambda pair: pair[0])]
+        return [(score, [word for score, word in group]) for score, group in groupby(sorted_score_list, lambda pair: pair[0])][0]
 
     def completely_new_words(self):
         return [word for word in self.all_words if len(set(word)) == self.words_length and
