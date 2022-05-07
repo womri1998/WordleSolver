@@ -13,10 +13,10 @@ class Languages(Enum):
 
 class WordleSolver:
     def __init__(self, words_length: int, language: str):
-        self.words_length = words_length
-        self.all_words = Languages[language].value(self.words_length).get_words()
-        self.keys = None
-        self.must_haves = None
+        self.words_length: int = words_length
+        self.all_words: set[str] = Languages[language].value(self.words_length).get_words()
+        self.keys: dict[str, set[int]] = dict()
+        self.must_haves: set[str] = set()
         self.reset()
 
     def reset(self):
@@ -52,8 +52,8 @@ class WordleSolver:
                         self.insert_black_letter(letter, index)
             return False
 
-    def possible_solutions(self):
-        return [word for word in self.all_words if word in self]
+    def possible_solutions(self) -> set[str]:
+        return {word for word in self.all_words if word in self}
 
     def uniqueness_score(self, word: str) -> int:
         return len(set(([c for c in word if c not in self.must_haves and self.keys[c] != set()])))
@@ -61,10 +61,6 @@ class WordleSolver:
     def get_most_option_reducing_words(self) -> tuple[int, list[str]]:
         sorted_score_list = sorted([(self.uniqueness_score(word), word) for word in self.all_words], key=lambda pair: pair[0], reverse=True)
         return [(score, [word for score, word in group]) for score, group in groupby(sorted_score_list, lambda pair: pair[0])][0]
-
-    def completely_new_words(self):
-        return [word for word in self.all_words if len(set(word)) == self.words_length and
-                all([self.keys[letter] == {i for i in range(self.words_length)} for letter in word])]
 
     def __contains__(self, item: str) -> bool:
         return self.valid_word(word=item)
