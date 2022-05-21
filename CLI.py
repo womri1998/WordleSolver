@@ -9,11 +9,12 @@ def is_valid_language(string: str):
 
 
 def validate_arguments():
-    set_parameters_message = "To set the script arguments in PyCharm, press the wrench button below the play button," \
+    set_parameters_message = "CMD: To set the script arguments in the CMD (Command Line)," \
+                             "simply enter a line that matches the correct usage." \
+                             "PyCharm: To set the script arguments in PyCharm, press the wrench button below the play button," \
                              "in the Run window.\n" \
-                             "There, edit the parameters text field.\n" \
-                             "To set the script arguments in the CMD (Command Line)," \
-                             "simply enter a line that matches the correct usage."
+                             "There, edit the parameters text field.\n"
+
     invalid_script_run_exception = Exception("Invalid run of the script.\n"
                                              "Correct usage: \"CLI.py <wordsize> (integer) <language> (string)\"\n"
                                              "Example usage: \"CLI.py 5 EnglISH\"" + "\n\n" +
