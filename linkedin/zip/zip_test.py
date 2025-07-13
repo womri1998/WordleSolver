@@ -30,6 +30,7 @@ SOLUTION_PATH = [
 def test_zip_solver_solve():
     mock_parser = Mock(spec=ZipParser)
     mock_parser.load_cells.return_value = EXAMPLE_BOARD
+    mock_parser.dump_cells_with_walls.return_value = EXAMPLE_BOARD_WITH_WALLS
 
     zip_solver = ZipSolver(mock_parser)
     result = zip_solver.find_solution()
