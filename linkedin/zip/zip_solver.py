@@ -4,8 +4,8 @@ from zip_parser import ZipParser
 class ZipSolver:
     def __init__(self, parser: ZipParser):
         self.parser = parser
-        self.parser.load_cells()
-        self.board = self.parser.dump_cells()
+        result = self.parser.load_cells()
+        self.board = result if result is not None else self.parser.dump_cells()
         self.size = len(self.board)
 
     def find_solution(self) -> list[tuple[int, int]]:

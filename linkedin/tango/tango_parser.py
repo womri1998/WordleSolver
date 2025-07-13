@@ -1,22 +1,15 @@
-import time
-from selenium import webdriver
-from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
+from pathlib import Path
+import sys
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.common.by import By
+
+sys.path.append(str(Path(__file__).resolve().parents[2]))
+from linkedin.base import BaseParser
 
 
-class TangoParser:
+class TangoParser(BaseParser):
     def __init__(self):
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.debugger_address = "127.0.0.1:9222"
-        self.driver: WebDriver = webdriver.Chrome(
-            service=Service(),
-            options=chrome_options
-        )
-        self.driver.get("https://www.linkedin.com/games/view/tango/desktop")  # This is the actual page to parse the data from the original https://www.linkedin.com/games/tango
-        time.sleep(2)
-        self.driver.find_element(By.CLASS_NAME, "artdeco-button--4").click()
+        super().__init__("tango")
         self.cells: list[list[WebElement]] | None = None
         self.size = 6
 
