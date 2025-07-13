@@ -4,18 +4,12 @@ from zip_solver import ZipSolver
 from zip_parser import ZipParser
 
 EXAMPLE_BOARD = [
-    [11, None, None, 6, None, 7],
-    [None, None, 10, None, 1, None],
-    [None, 3, None, 5, None, None],
-    [9, None, 4, None, None, None],
-    [None, 2, None, None, None, None],
-    [8, None, None, None, None, None],
-]
-
-# Each cell in the solver includes down and right wall flags.
-EXAMPLE_BOARD_WITH_WALLS = [
-    [(v, False, False) for v in row]
-    for row in EXAMPLE_BOARD
+    [  11, None, None,    6, None,    7],
+    [None, None,   10, None,    1, None],
+    [None,    3, None,     5, None, None],
+    [   9, None,    4, None, None, None],
+    [None,    2, None, None, None, None],
+    [   8, None, None, None, None, None]
 ]
 
 SOLUTION_PATH = [
