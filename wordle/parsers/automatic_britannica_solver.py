@@ -13,10 +13,10 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 
-from wordle_solver.game_state import GameBoard
-from wordle_solver.board_solver import BoardSolver
-from wordle_solver.parsers.brintannica_parser import get_game_board, is_current_guess_valid
-from wordle_solver.word_fetchers.merriam_webster_fetcher import MerriamWebsterFetcher
+from wordle.game_state import GameBoard
+from wordle.board_solver import BoardSolver
+from wordle.parsers.brintannica_parser import get_game_board, is_current_guess_valid
+from wordle.word_fetchers.merriam_webster_fetcher import MerriamWebsterFetcher
 
 
 def init_driver() -> WebDriver:

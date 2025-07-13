@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-from wordle_solver.game_state import Cell, Row, Board, GameBoard
+from wordle.game_state import Cell, Row, Board, GameBoard
 
 
 def get_cell_color(cell):

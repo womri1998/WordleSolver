@@ -4,7 +4,7 @@ from selenium.webdriver import ChromeOptions, Chrome
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 
-from wordle_solver.word_fetchers.word_fetcher import WordFetcher
+from wordle.word_fetchers.word_fetcher import WordFetcher
 
 
 class MerriamWebsterFetcher(WordFetcher):
@@ -43,7 +43,7 @@ class MerriamWebsterFetcher(WordFetcher):
 
     @staticmethod
     def get_saved_words() -> set[str]:
-        with open(r'C:\Users\Omri Waisbart\PycharmProjects\PuzzleSolver\wordle_solver\word_fetchers\merriam_webster.json') as f:
+        with open(r'/wordle\word_fetchers\merriam_webster.json') as f:
             all_words = json.load(f)
         return set(all_words)
 

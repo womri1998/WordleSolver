@@ -2,7 +2,7 @@ import requests
 from english_words import english_words_lower_alpha_set
 from string import ascii_uppercase
 
-from wordle_solver.word_fetchers.word_fetcher import WordFetcher
+from wordle.word_fetchers.word_fetcher import WordFetcher
 
 
 WORDS_ALPHA_URL = "https://raw.githubusercontent.com/dwyl/english-words/master/words_alpha.txt"

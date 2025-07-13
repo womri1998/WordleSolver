@@ -1,5 +1,5 @@
 from collections import defaultdict
-from wordle_solver.game_state import Row, Board
+from wordle.game_state import Row, Board
 
 
 class BoardSolver:
