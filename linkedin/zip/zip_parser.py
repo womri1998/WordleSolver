@@ -1,12 +1,9 @@
 import time
 from math import sqrt
-from pathlib import Path
-import sys
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.by import By
 
-sys.path.append(str(Path(__file__).resolve().parents[2]))
-from linkedin.base import BaseParser
+from ..base import BaseParser
 
 
 class ZipParser(BaseParser):
