@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import Mock
-from zip_solver import ZipSolver
-from zip_parser import ZipParser
+from .zip_solver import ZipSolver
+from .zip_parser import ZipParser
 
 EXAMPLE_BOARD = [
     [  11, None, None,    6, None,    7],

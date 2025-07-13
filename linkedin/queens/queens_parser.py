@@ -1,23 +1,13 @@
-import time
 from math import sqrt
-from selenium import webdriver
-from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.common.by import By
+
+from ..base import BaseParser
 
 
-class QueensParser:
+class QueensParser(BaseParser):
     def __init__(self):
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.debugger_address = "127.0.0.1:9222"
-        self.driver: WebDriver = webdriver.Chrome(
-            service=Service(),
-            options=chrome_options
-        )
-        self.driver.get("https://www.linkedin.com/games/view/queens/desktop")  # This is the actual page to parse the data from the original https://www.linkedin.com/games/queens
-        time.sleep(2)
-        self.driver.find_element(By.CLASS_NAME, "artdeco-button--4").click()
+        super().__init__("queens")
         self.cells: list[list[WebElement]] | None = None
         self.size: int | None = None
 

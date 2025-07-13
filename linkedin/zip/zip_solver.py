@@ -1,4 +1,4 @@
-from zip_parser import ZipParser
+from .zip_parser import ZipParser
 
 
 class ZipSolver:
