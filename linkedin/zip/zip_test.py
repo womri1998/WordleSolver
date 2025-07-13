@@ -29,11 +29,8 @@ SOLUTION_PATH = [
 
 def test_zip_solver_solve():
     mock_parser = Mock(spec=ZipParser)
-    # The solver expects load_cells to initialise internal data and dump_cells
-    # to return the current board state. When mocking we simply return the
-    # example board for dump_cells and ignore the result of load_cells.
-    mock_parser.load_cells.return_value = None
-    mock_parser.dump_cells.return_value = EXAMPLE_BOARD
+    mock_parser.load_cells.return_value = EXAMPLE_BOARD
+    mock_parser.dump_cells_with_walls.return_value = EXAMPLE_BOARD_WITH_WALLS
 
     zip_solver = ZipSolver(mock_parser)
     result = zip_solver.find_solution()
