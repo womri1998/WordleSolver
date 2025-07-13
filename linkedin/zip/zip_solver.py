@@ -5,8 +5,30 @@ class ZipSolver:
     def __init__(self, parser: ZipParser):
         self.parser = parser
         self.parser.load_cells()
-        self.board = self.parser.dump_cells()
-        self.size = len(self.board)
+        # include wall information when parsing the board
+        board_data = self.parser.dump_cells_with_walls()
+        self.size = len(board_data)
+
+        # store numeric values separate from wall locations
+        self.board: list[list[int | None]] = []
+        self.right_walls: list[list[bool]] = []  # walls between (r,c) and (r,c+1)
+        self.down_walls: list[list[bool]] = []   # walls between (r,c) and (r+1,c)
+
+        for r, row_data in enumerate(board_data):
+            values_row = []
+            right_row = []
+            for c, (value, down, right) in enumerate(row_data):
+                values_row.append(value)
+                if c < self.size - 1:
+                    right_row.append(right)
+            self.board.append(values_row)
+            self.right_walls.append(right_row)
+
+        for r in range(self.size - 1):
+            down_row = []
+            for c in range(self.size):
+                down_row.append(board_data[r][c][1])
+            self.down_walls.append(down_row)
 
     def find_solution(self) -> list[tuple[int, int]]:
         """
@@ -51,6 +73,23 @@ class ZipSolver:
                 if (new_r, new_c) in visited:
                     continue
 
+                # check for walls blocking the movement
+                blocked = False
+                if delta_r == 0 and delta_c == 1:
+                    if self.right_walls[row][column]:
+                        blocked = True
+                elif delta_r == 0 and delta_c == -1:
+                    if self.right_walls[row][column - 1]:
+                        blocked = True
+                elif delta_r == 1 and delta_c == 0:
+                    if self.down_walls[row][column]:
+                        blocked = True
+                elif delta_r == -1 and delta_c == 0:
+                    if self.down_walls[row - 1][column]:
+                        blocked = True
+                if blocked:
+                    continue
+
                 cell_val = self.board[new_r][new_c]
                 new_last = last_number
 
@@ -80,7 +119,8 @@ class ZipSolver:
         visited.add(start)
         path.append(start)
         # Set initial number based on the starting cell value.
-        initial_number = self.board[start[0]][start[1]] if isinstance(self.board[start[0]][start[1]], int) else 0
+        start_value = self.board[start[0]][start[1]]
+        initial_number = start_value if isinstance(start_value, int) else 0
 
         if dfs(start[0], start[1], initial_number):
             return path
